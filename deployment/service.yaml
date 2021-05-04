@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-challenge-service
+spec:
+  type: NodePort 
+  # label matcher for the pods
+  selector:
+    app: k8s-challenge
+  ports:
+    - protocol: TCP
+      # our application pod exposed port
+      port: 4000
+      # below is not required, just wanted to make it staic
+      nodePort: 30000

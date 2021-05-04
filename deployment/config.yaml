@@ -1,0 +1,7 @@
+kind: ConfigMap 
+apiVersion: v1 
+metadata:
+  name: k8s-challenge-cm 
+data:
+#only field that we need in out application
+  NAME: Dan

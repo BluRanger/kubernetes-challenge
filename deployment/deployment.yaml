@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-challenge
+  # label for the deployment
+  labels:
+    app: k8s-challenge
+spec:
+  replicas: 1
+  selector:
+  # matcher for replica-set
+    matchLabels:
+      app: k8s-challenge
+  template:
+    metadata:
+  # label for the containers
+      labels:
+        app: k8s-challenge
+    spec:
+      containers:
+       - name: k8s-challenge
+         image: k8s-challenge:v1
+         imagePullPolicy: Never
+         envFrom:
+          - configMapRef:
+  # Config map to be mounted as environment variable
+              name: k8s-challenge-cm
+         ports:
+  # as the nodejs app is getting exposed on 4000 which is hardcoded.
+          - containerPort: 4000
+         resources:
+          limits:
+            cpu: 300m
+            memory: 200Mi
+          requests:
+            cpu: 200m
+            memory: 100Mi

@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: k8s-challenge
+spec:
+  rules:
+  #do map this dns name to the minikube ip on the hosts file of the host.
+  - host: learnk8s.challenge
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+ # this calls the below k8s service (label matcher)
+            name: k8s-challenge-service
+            port:
+              number: 4000
+  #created another rule such that nginx allows the http call using IP address,
+    # as there is a filter with the request header's which contain hostname - which should match as it is.
+  - hostIp: "172.24.139.237"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+  # this calls the below k8s service (label matcher)
+            name: k8s-challenge-service
+            port:
+              number: 4000
